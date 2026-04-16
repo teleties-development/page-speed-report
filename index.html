@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teleties — Page Speed Optimization Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --gold: #a07d37;
+        --gold-pale: rgba(160, 125, 55, 0.14);
+        --improve: #0d863f;
+        --improve-pale: rgba(13, 134, 63, 0.12);
+        --coral: #e8725a;
+        --red-pale: #fdecea;
+        --cream: #faf8f5;
+        --sand: #f0ebe3;
+        --charcoal: #1e2023;
+        --muted: #6b7280;
+        --border: #e5ded5;
+        --white: #ffffff;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--cream);
+        color: var(--charcoal);
+        font-size: 15px;
+        line-height: 1.65;
+      }
+
+      /* ── HEADER ── */
+      header {
+        background: #efe7d5;
+        padding: 56px 48px 48px;
+        position: relative;
+        overflow: hidden;
+      }
+      header::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 80% 50%, rgba(160, 125, 55, 0.1) 0%, transparent 65%);
+      }
+      .header-inner {
+        position: relative;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .header-label {
+        display: inline-block;
+        font-family: "DM Sans", sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        border: 1px solid rgba(160, 125, 55, 0.45);
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 20px;
+      }
+      header h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(38px, 5vw, 58px);
+        font-weight: 600;
+        color: var(--charcoal);
+        line-height: 1.1;
+        margin-bottom: 14px;
+        letter-spacing: -0.01em;
+      }
+      header h1 span {
+        color: var(--gold);
+      }
+      .header-meta {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+      .meta-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .meta-pill strong {
+        color: var(--charcoal);
+      }
+      .meta-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--gold);
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* ── LAYOUT ── */
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 56px 24px 80px;
+      }
+      section {
+        margin-bottom: 64px;
+      }
+
+      .section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 30px;
+        font-weight: 600;
+        color: var(--gold);
+        margin-bottom: 6px;
+        letter-spacing: -0.01em;
+      }
+      .section-subtitle {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 28px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      /* ── SUMMARY CARDS ── */
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 48px;
+      }
+      .summary-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      .summary-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--gold);
+      }
+      .card-page {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 10px;
+      }
+      .card-url {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .card-stat {
+        margin-bottom: 14px;
+      }
+      .card-stat-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .card-stat-value {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(34px, 4vw, 44px);
+        font-weight: 700;
+        color: var(--improve);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin-bottom: 4px;
+      }
+      .card-stat-context {
+        font-size: 13px;
+        color: var(--charcoal);
+        font-variant-numeric: tabular-nums;
+      }
+      .card-stat-more {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.55;
+        margin: 0;
+      }
+
+      /* ── COMPARISON TABLE ── */
+      .table-wrap {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 40px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      }
+      .table-header {
+        display: grid;
+        grid-template-columns: 220px 1fr 1fr 100px;
+        background: var(--charcoal);
+        padding: 14px 24px;
+        align-items: center;
+        gap: 16px;
+      }
+      .th {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .th.accent {
+        color: #c9a85c;
+      }
+      .th.highlight {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .table-row {
+        display: grid;
+        grid-template-columns: 220px 1fr 1fr 100px;
+        padding: 14px 24px;
+        border-bottom: 1px solid var(--border);
+        align-items: center;
+        gap: 16px;
+        transition: background 0.15s;
+      }
+      .table-row:last-child {
+        border-bottom: none;
+      }
+      .table-row:hover {
+        background: var(--cream);
+      }
+      .table-row.section-break {
+        background: var(--sand);
+      }
+
+      .metric-name {
+        font-size: 13.5px;
+        color: var(--charcoal);
+        font-weight: 500;
+      }
+      .metric-desc {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .val {
+        font-size: 15px;
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+      }
+      .val.bad {
+        color: var(--coral);
+      }
+      .val.ok {
+        color: #b45309;
+      }
+      .val.good {
+        color: var(--improve);
+      }
+      .val.neutral {
+        color: var(--charcoal);
+      }
+
+      .delta-cell {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12.5px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 8px;
+        width: fit-content;
+        white-space: nowrap;
+      }
+      .delta-cell.positive {
+        background: var(--improve-pale);
+        color: var(--improve);
+      }
+      .delta-cell.negative {
+        background: var(--red-pale);
+        color: #c0392b;
+      }
+      .delta-cell.flat {
+        background: var(--sand);
+        color: var(--muted);
+      }
+
+      /* ── NEXT STEPS ── */
+      .next-steps-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 12px;
+      }
+      .step-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 22px 24px;
+      }
+      .step-card h4 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .step-card h4 .icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      .step-card ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .step-card ul li {
+        font-size: 13px;
+        color: var(--muted);
+        padding-left: 16px;
+        position: relative;
+        line-height: 1.5;
+      }
+      .step-card ul li::before {
+        content: "–";
+        position: absolute;
+        left: 0;
+        color: var(--gold);
+        font-weight: 600;
+      }
+      .step-card ul li strong {
+        color: var(--charcoal);
+      }
+
+      .warning-box {
+        background: #fffbeb;
+        border: 1px solid #f59e0b;
+        border-radius: 12px;
+        padding: 18px 20px;
+        margin-bottom: 20px;
+        font-size: 13px;
+        color: #78350f;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .warning-box .w-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .pixel-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        margin-top: 16px;
+      }
+      .pixel-table th {
+        text-align: left;
+        padding: 10px 14px;
+        background: var(--sand);
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        border-bottom: 1px solid var(--border);
+      }
+      .pixel-table td {
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      .pixel-table tr:last-child td {
+        border-bottom: none;
+      }
+      .pixel-table tr:hover td {
+        background: var(--cream);
+      }
+      .badge {
+        display: inline-block;
+        font-size: 10.5px;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      .badge.action {
+        background: #fde8e0;
+        color: #c0392b;
+        white-space: nowrap;
+      }
+      .pixel-table td.badge-cell {
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+      .badge.note {
+        background: #fef9c3;
+        color: #78350f;
+        white-space: nowrap;
+      }
+
+      /* ── GTM TIPS ── */
+      .tips-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 4px;
+      }
+      .tip-item {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 14px 16px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 13px;
+      }
+      .tip-num {
+        width: 22px;
+        height: 22px;
+        background: var(--gold);
+        color: white;
+        border-radius: 50%;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .tip-body strong {
+        color: var(--charcoal);
+        display: block;
+        margin-bottom: 2px;
+        font-weight: 600;
+      }
+      .tip-body span {
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        text-align: center;
+        padding: 40px 24px;
+        font-size: 12px;
+        color: var(--muted);
+        border-top: 1px solid var(--border);
+      }
+      footer strong {
+        color: var(--charcoal);
+      }
+
+      @media (max-width: 700px) {
+        .summary-grid {
+          grid-template-columns: 1fr;
+        }
+        .next-steps-grid {
+          grid-template-columns: 1fr;
+        }
+        .table-header,
+        .table-row {
+          grid-template-columns: 150px 1fr 1fr;
+        }
+        .th:last-child,
+        .table-row > *:last-child {
+          display: none;
+        }
+        header {
+          padding: 36px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <div class="header-label">teleties.com · D2C Shopify</div>
+        <h1>Page Speed <span>Optimization</span><br />Report</h1>
+        <p style="color: var(--muted); font-size: 14px; max-width: 520px; margin-top: 8px">A month-long initiative to improve Core Web Vitals and GTmetrix scores across key Shopify templates — PDP, PLP, and Homepage.</p>
+        <div class="header-meta">
+          <div class="meta-pill">
+            <div class="meta-dot"></div>
+            <span>Tested via <strong>GTmetrix</strong></span>
+          </div>
+          <div class="meta-pill">
+            <div class="meta-dot"></div>
+            <span>Location: <strong>Seattle, WA, USA</strong></span>
+          </div>
+          <div class="meta-pill">
+            <div class="meta-dot"></div>
+            <span>Browser: <strong>Chrome 142</strong></span>
+          </div>
+          <div class="meta-pill">
+            <div class="meta-dot"></div>
+            <span>Test date: <strong>April 15, 2026</strong></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ── SECTION: OVERVIEW ── -->
+      <section>
+        <div class="section-title">Results at a Glance</div>
+        <div class="section-subtitle">Strongest real-world improvement on each template (measured before vs after the PSO theme on the same GTmetrix runs).</div>
+
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="card-page">PDP — Tortoise Flat Round</div>
+            <div class="card-url">teleties.com/products/tortoise-large-flat-round-clip</div>
+            <div class="card-stat">
+              <div class="card-stat-label">Largest Contentful Paint</div>
+              <div class="card-stat-value">−696ms</div>
+              <div class="card-stat-context">1.3s → 605ms · main content paints faster</div>
+            </div>
+            <p class="card-stat-more">Also improved on this template: total page size −1.03 MB, Total Blocking Time −851ms, and 41 fewer requests.</p>
+          </div>
+          <div class="summary-card">
+            <div class="card-page">PLP — Flat Hair Clips</div>
+            <div class="card-url">teleties.com/collections/flat-hair-clips</div>
+            <div class="card-stat">
+              <div class="card-stat-label">Largest Contentful Paint</div>
+              <div class="card-stat-value">−602ms</div>
+              <div class="card-stat-context">1.1s → 516ms · main content paints faster</div>
+            </div>
+            <p class="card-stat-more">Also improved: Total Blocking Time −541ms, page weight −456 KB, and 39 fewer requests.</p>
+          </div>
+          <div class="summary-card">
+            <div class="card-page">Homepage</div>
+            <div class="card-url">teleties.com/</div>
+            <div class="card-stat">
+              <div class="card-stat-label">Largest Contentful Paint</div>
+              <div class="card-stat-value">−217ms</div>
+              <div class="card-stat-context">1.1s → 929ms · main content paints faster</div>
+            </div>
+            <p class="card-stat-more">CLS improved to 0 (was 0.05). Total Blocking Time increased on this template and is the main follow-up opportunity.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECTION: PDP ── -->
+      <section>
+        <div class="section-title">PDP — Product Detail Page</div>
+        <div class="section-subtitle">teleties.com/products/tortoise-large-flat-round-clip — Tested Apr 15, 2026 · 4:38 PM vs 5:16 PM</div>
+
+        <div class="table-wrap">
+          <div class="table-header">
+            <div class="th">Metric</div>
+            <div class="th">Before</div>
+            <div class="th accent">After (PSO Live)</div>
+            <div class="th highlight">Change</div>
+          </div>
+
+          <div class="table-row">
+            <div><div class="metric-name">GTmetrix Grade</div></div>
+            <div class="val ok">C (71%)</div>
+            <div class="val ok">C (76%)</div>
+            <div><span class="delta-cell positive">↑ +5%</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Performance Score</div></div>
+            <div class="val bad">64%</div>
+            <div class="val ok">70%</div>
+            <div><span class="delta-cell positive">↑ +6%</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Structure Score</div></div>
+            <div class="val ok">82%</div>
+            <div class="val ok">84%</div>
+            <div><span class="delta-cell positive">↑ +2%</span></div>
+          </div>
+          <div class="table-row">
+            <div>
+              <div class="metric-name">Largest Contentful Paint</div>
+              <div class="metric-desc">LCP — target &lt; 2.5s</div>
+            </div>
+            <div class="val ok">1.3s</div>
+            <div class="val good">605ms</div>
+            <div><span class="delta-cell positive">↑ −696ms</span></div>
+          </div>
+          <div class="table-row">
+            <div>
+              <div class="metric-name">Total Blocking Time</div>
+              <div class="metric-desc">TBT — target &lt; 200ms</div>
+            </div>
+            <div class="val bad">2.2s</div>
+            <div class="val bad">1.4s</div>
+            <div><span class="delta-cell positive">↑ −851ms</span></div>
+          </div>
+          <div class="table-row">
+            <div>
+              <div class="metric-name">Cumulative Layout Shift</div>
+              <div class="metric-desc">CLS — target &lt; 0.1</div>
+            </div>
+            <div class="val good">0.01</div>
+            <div class="val good">0.01</div>
+            <div><span class="delta-cell flat">No change</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Total Page Size</div></div>
+            <div class="val bad">5.60 MB</div>
+            <div class="val bad">4.57 MB</div>
+            <div><span class="delta-cell positive">↑ −1.03 MB</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Total # of Requests</div></div>
+            <div class="val bad">497</div>
+            <div class="val bad">456</div>
+            <div><span class="delta-cell positive">↑ −41 req</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECTION: PLP ── -->
+      <section>
+        <div class="section-title">PLP — Product Listing Page</div>
+        <div class="section-subtitle">teleties.com/collections/flat-hair-clips — Tested Apr 15, 2026 · 4:38 PM vs 5:18 PM</div>
+
+        <div class="table-wrap">
+          <div class="table-header">
+            <div class="th">Metric</div>
+            <div class="th">Before</div>
+            <div class="th accent">After (PSO Live)</div>
+            <div class="th highlight">Change</div>
+          </div>
+
+          <div class="table-row">
+            <div><div class="metric-name">GTmetrix Grade</div></div>
+            <div class="val ok">C (72%)</div>
+            <div class="val ok">C (75%)</div>
+            <div><span class="delta-cell positive">↑ +3%</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Performance Score</div></div>
+            <div class="val bad">67%</div>
+            <div class="val ok">70%</div>
+            <div><span class="delta-cell positive">↑ +3%</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Structure Score</div></div>
+            <div class="val bad">80%</div>
+            <div class="val ok">83%</div>
+            <div><span class="delta-cell positive">↑ +3%</span></div>
+          </div>
+          <div class="table-row">
+            <div>
+              <div class="metric-name">Largest Contentful Paint</div>
+              <div class="metric-desc">LCP — target &lt; 2.5s</div>
+            </div>
+            <div class="val ok">1.1s</div>
+            <div class="val good">516ms</div>
+            <div><span class="delta-cell positive">↑ −602ms</span></div>
+          </div>
+          <div class="table-row">
+            <div>
+              <div class="metric-name">Total Blocking Time</div>
+              <div class="metric-desc">TBT — target &lt; 200ms</div>
+            </div>
+            <div class="val bad">2.2s</div>
+            <div class="val bad">1.6s</div>
+            <div><span class="delta-cell positive">↑ −541ms</span></div>
+          </div>
+          <div class="table-row">
+            <div>
+              <div class="metric-name">Cumulative Layout Shift</div>
+              <div class="metric-desc">CLS — target &lt; 0.1</div>
+            </div>
+            <div class="val good">0</div>
+            <div class="val good">0</div>
+            <div><span class="delta-cell flat">No change</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Total Page Size</div></div>
+            <div class="val bad">5.10 MB</div>
+            <div class="val bad">4.66 MB</div>
+            <div><span class="delta-cell positive">↑ −456 KB</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Total # of Requests</div></div>
+            <div class="val bad">436</div>
+            <div class="val bad">397</div>
+            <div><span class="delta-cell positive">↑ −39 req</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECTION: HOMEPAGE ── -->
+      <section>
+        <div class="section-title">Homepage</div>
+        <div class="section-subtitle">teleties.com/ — Tested Apr 15, 2026 · 4:32 PM vs 5:24 PM</div>
+
+        <div class="table-wrap">
+          <div class="table-header">
+            <div class="th">Metric</div>
+            <div class="th">Before</div>
+            <div class="th accent">After (PSO Live)</div>
+            <div class="th highlight">Change</div>
+          </div>
+
+          <div class="table-row">
+            <div><div class="metric-name">GTmetrix Grade</div></div>
+            <div class="val ok">C (73%)</div>
+            <div class="val ok">C (74%)</div>
+            <div><span class="delta-cell positive">↑ +1%</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Performance Score</div></div>
+            <div class="val bad">67%</div>
+            <div class="val bad">68%</div>
+            <div><span class="delta-cell positive">↑ +1%</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Structure Score</div></div>
+            <div class="val good">83%</div>
+            <div class="val ok">82%</div>
+            <div><span class="delta-cell negative">↓ −1%</span></div>
+          </div>
+          <div class="table-row">
+            <div>
+              <div class="metric-name">Largest Contentful Paint</div>
+              <div class="metric-desc">LCP — target &lt; 2.5s</div>
+            </div>
+            <div class="val ok">1.1s</div>
+            <div class="val good">929ms</div>
+            <div><span class="delta-cell positive">↑ −217ms</span></div>
+          </div>
+          <div class="table-row">
+            <div>
+              <div class="metric-name">Total Blocking Time</div>
+              <div class="metric-desc">TBT — target &lt; 200ms</div>
+            </div>
+            <div class="val good">1.1s</div>
+            <div class="val bad">1.4s</div>
+            <div><span class="delta-cell negative">↓ +262ms</span></div>
+          </div>
+          <div class="table-row">
+            <div>
+              <div class="metric-name">Cumulative Layout Shift</div>
+              <div class="metric-desc">CLS — target &lt; 0.1</div>
+            </div>
+            <div class="val bad">0.05</div>
+            <div class="val good">0</div>
+            <div><span class="delta-cell positive">↑ −0.05</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Total Page Size</div></div>
+            <div class="val bad">6.52 MB</div>
+            <div class="val bad">6.52 MB</div>
+            <div><span class="delta-cell flat">≈ −2.5 KB</span></div>
+          </div>
+          <div class="table-row">
+            <div><div class="metric-name">Total # of Requests</div></div>
+            <div class="val bad">433</div>
+            <div class="val bad">430</div>
+            <div><span class="delta-cell positive">↑ −3</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SECTION: NEXT STEPS ── -->
+      <section>
+        <div class="section-title">Next Steps & Elevar Recommendations</div>
+        <div class="section-subtitle">The PSO theme has been live ~2 weeks and is stable. The following actions are recommended to unlock further performance gains.</div>
+
+        <div class="warning-box">
+          <div class="w-icon">⚠️</div>
+          <div><strong>Important — Duplicate Tracking Risk:</strong> All 3rd-party pixel scripts that are also flowing through Elevar must be removed or disabled to prevent data duplication across GA4, Meta, TikTok, Snapchat, Pinterest, and Reddit. Until this is done, data accuracy and page speed are both compromised.</div>
+        </div>
+
+        <table class="pixel-table">
+          <thead>
+            <tr>
+              <th>Channel</th>
+              <th>Current Status</th>
+              <th>Required Action</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>GA4</strong></td>
+              <td>Potentially dual-tracking via Google & YouTube app + Elevar</td>
+              <td class="badge-cell"><span class="badge action">Remove native app</span></td>
+              <td>Disable GA4 in Shopify's Google & YouTube channel</td>
+            </tr>
+            <tr>
+              <td><strong>Meta (Facebook)</strong></td>
+              <td>Pixel possibly still active via Facebook & Instagram app</td>
+              <td class="badge-cell"><span class="badge action">Disable pixel</span></td>
+              <td>Disable Meta pixel in Shopify's Facebook & Instagram app</td>
+            </tr>
+            <tr>
+              <td><strong>TikTok</strong></td>
+              <td>Pixel may be running natively alongside Elevar</td>
+              <td class="badge-cell"><span class="badge action">Disable pixel</span></td>
+              <td>Disable TikTok Pixel in Shopify app</td>
+            </tr>
+            <tr>
+              <td><strong>Snapchat</strong></td>
+              <td>Elevar handling client-side; GTM tags still active</td>
+              <td class="badge-cell"><span class="badge action">Pause GTM tags</span></td>
+              <td>All Snapchat GTM tags must be paused to prevent duplication</td>
+            </tr>
+            <tr>
+              <td><strong>Pinterest</strong></td>
+              <td>Native Sales Channel app active</td>
+              <td class="badge-cell"><span class="badge note">Decision required</span></td>
+              <td>Pinterest app cannot separate Catalog vs Pixel. Options: migrate Catalog to GoDataFeed, or keep native app for pixel only (no Elevar for Pinterest)</td>
+            </tr>
+            <tr>
+              <td><strong>Reddit</strong></td>
+              <td>Tracking via Elevar</td>
+              <td class="badge-cell"><span class="badge action">Audit for duplication</span></td>
+              <td>Remove any hardcoded Reddit pixel scripts from theme</td>
+            </tr>
+            <tr>
+              <td><strong>GTM Containers</strong></td>
+              <td>Two GTM containers detected loading (GTM-MLX8N5L + 1 other)</td>
+              <td class="badge-cell"><span class="badge note">Audit needed</span></td>
+              <td>Elevar loads GTM-MLX8N5L. Confirm if the second container is intentional and contains no duplicate tags</td>
+            </tr>
+            <tr>
+              <td><strong>Friendbuy</strong></td>
+              <td>Theme code + custom pixel in use</td>
+              <td class="badge-cell"><span class="badge note">Confirm with Friendbuy</span></td>
+              <td>Elevar cannot confirm necessity; contact Friendbuy support to verify both code paths are required</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── GTM OPTIMIZATION TIPS ── -->
+      <section>
+        <div class="section-title">GTM Speed Optimizations (Elevar)</div>
+        <div class="section-subtitle">These GTM strategies can be applied independently of pixel removal to further improve performance.</div>
+
+        <div class="tips-list">
+          <div class="tip-item">
+            <div class="tip-num">1</div>
+            <div class="tip-body">
+              <strong>Remove old and unused tags</strong>
+              <span>Audit GTM for tags that are no longer serving active campaigns or tracking needs. Fewer tags = faster container load.</span>
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-num">2</div>
+            <div class="tip-body">
+              <strong>Defer marketing tags to Window Loaded (or time-based trigger)</strong>
+              <span>Move tags that fire on pageview to fire on Window Loaded instead. For non-critical tags, add a time-delay trigger (e.g. 2000ms). <em>Note: later firing can reduce data capture rates — balance accuracy vs speed.</em></span>
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-num">3</div>
+            <div class="tip-body">
+              <strong>Remove unused visibility triggers</strong>
+              <span>Visibility triggers run a check every second to detect on-screen elements. Remove any that aren't critical — they can measurably drag down TBT.</span>
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-num">4</div>
+            <div class="tip-body">
+              <strong>Remove visibility triggers from Google Optimize tests</strong>
+              <span>Live or draft A/B tests using visibility triggers are especially costly. Audit and clean up any stale Optimize experiments.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── KEY CALLOUT ── -->
+      <section style="margin-bottom: 0">
+        <div style="background: var(--charcoal); border-radius: 16px; padding: 32px 36px; display: flex; gap: 32px; align-items: center; flex-wrap: wrap">
+          <div style="flex: 1; min-width: 240px">
+            <div style="font-family: &quot;Cormorant Garamond&quot;, serif; font-size: clamp(32px, 4vw, 42px); font-weight: 600; color: #c9a85c; margin-bottom: 10px; letter-spacing: -0.02em">Room to grow</div>
+            <p style="font-size: 13.5px; color: rgba(255, 255, 255, 0.6); line-height: 1.7">The PSO theme has delivered solid LCP and payload reductions, particularly on PDP (−696ms, −1.03MB) and PLP (−602ms). Once 3rd-party pixel duplication is resolved, TBT improvements and further score gains are expected across PDP, PLP, and Homepage — especially the Homepage, where TBT regressed slightly after the PSO deploy.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px; min-width: 180px">
+            <div style="border: 1px solid rgba(160, 125, 55, 0.35); border-radius: 10px; padding: 14px 18px">
+              <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #c9a85c; margin-bottom: 4px">Best LCP win</div>
+              <div style="font-family: &quot;Cormorant Garamond&quot;, serif; font-size: 28px; font-weight: 700; color: #0d863f">−696ms</div>
+              <div style="font-size: 12px; color: rgba(255, 255, 255, 0.45)">PDP template</div>
+            </div>
+            <div style="border: 1px solid rgba(160, 125, 55, 0.35); border-radius: 10px; padding: 14px 18px">
+              <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #c9a85c; margin-bottom: 4px">Most requests eliminated</div>
+              <div style="font-family: &quot;Cormorant Garamond&quot;, serif; font-size: 28px; font-weight: 700; color: #0d863f">−41 req</div>
+              <div style="font-size: 12px; color: rgba(255, 255, 255, 0.45)">PDP template</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <strong>teleties.com</strong> · Page Speed Optimization Report · April 2026<br />
+      Data sourced from GTmetrix · Chrome 142 · Seattle, WA
+    </footer>
+  </body>
+</html>
