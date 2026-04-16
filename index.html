@@ -407,28 +407,6 @@
       .pixel-table tr:hover td {
         background: var(--cream);
       }
-      .badge {
-        display: inline-block;
-        font-size: 10.5px;
-        font-weight: 600;
-        padding: 2px 8px;
-        border-radius: 20px;
-        letter-spacing: 0.04em;
-      }
-      .badge.action {
-        background: #fde8e0;
-        color: #c0392b;
-        white-space: nowrap;
-      }
-      .pixel-table td.badge-cell {
-        white-space: nowrap;
-        vertical-align: middle;
-      }
-      .badge.note {
-        background: #fef9c3;
-        color: #78350f;
-        white-space: nowrap;
-      }
 
       /* ── GTM TIPS ── */
       .tips-list {
@@ -575,7 +553,7 @@
       <!-- ── SECTION: PDP ── -->
       <section>
         <div class="section-title">PDP — Product Detail Page</div>
-        <div class="section-subtitle">teleties.com/products/tortoise-large-flat-round-clip — Tested Apr 15, 2026 · 4:38 PM vs 5:16 PM</div>
+        <div class="section-subtitle">teleties.com/products/tortoise-large-flat-round-clip · GTmetrix comparison, April 15, 2026</div>
 
         <div class="table-wrap">
           <div class="table-header">
@@ -648,7 +626,7 @@
       <!-- ── SECTION: PLP ── -->
       <section>
         <div class="section-title">PLP — Product Listing Page</div>
-        <div class="section-subtitle">teleties.com/collections/flat-hair-clips — Tested Apr 15, 2026 · 4:38 PM vs 5:18 PM</div>
+        <div class="section-subtitle">teleties.com/collections/flat-hair-clips · GTmetrix comparison, April 15, 2026</div>
 
         <div class="table-wrap">
           <div class="table-header">
@@ -721,7 +699,7 @@
       <!-- ── SECTION: HOMEPAGE ── -->
       <section>
         <div class="section-title">Homepage</div>
-        <div class="section-subtitle">teleties.com/ — Tested Apr 15, 2026 · 4:32 PM vs 5:24 PM</div>
+        <div class="section-subtitle">teleties.com/ · GTmetrix comparison, April 15, 2026</div>
 
         <div class="table-wrap">
           <div class="table-header">
@@ -793,71 +771,42 @@
 
       <!-- ── SECTION: NEXT STEPS ── -->
       <section>
-        <div class="section-title">Next Steps & Elevar Recommendations</div>
-        <div class="section-subtitle">The PSO theme has been live ~2 weeks and is stable. The following actions are recommended to unlock further performance gains.</div>
+        <div class="section-title">Next steps · Third-party &amp; tag governance</div>
+        <div class="section-subtitle">Theme-side wins are in place; the next gains mostly come from a clean, single path for analytics and marketing tags.</div>
 
         <div class="warning-box">
           <div class="w-icon">⚠️</div>
-          <div><strong>Important — Duplicate Tracking Risk:</strong> All 3rd-party pixel scripts that are also flowing through Elevar must be removed or disabled to prevent data duplication across GA4, Meta, TikTok, Snapchat, Pinterest, and Reddit. Until this is done, data accuracy and page speed are both compromised.</div>
+          <div><strong>Duplicate measurement:</strong> When the same events are fired from both Shopify sales-channel apps <em>and</em> a tag-manager or data-layer setup, you risk inflated counts, conflicting attribution, and unnecessary script weight. Sorting that out improves both data quality and room for further speed work.</div>
         </div>
 
         <table class="pixel-table">
           <thead>
             <tr>
-              <th>Channel</th>
-              <th>Current Status</th>
-              <th>Required Action</th>
-              <th>Notes</th>
+              <th>Area</th>
+              <th>What to watch for</th>
+              <th>Typical direction</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>GA4</strong></td>
-              <td>Potentially dual-tracking via Google & YouTube app + Elevar</td>
-              <td class="badge-cell"><span class="badge action">Remove native app</span></td>
-              <td>Disable GA4 in Shopify's Google & YouTube channel</td>
+              <td><strong>Analytics &amp; ad pixels</strong></td>
+              <td>Native app integrations and tag-manager tags both firing similar pixels or conversion events.</td>
+              <td>For each platform, choose <strong>one</strong> implementation (app <em>or</em> tag manager) and disable the other after validation.</td>
             </tr>
             <tr>
-              <td><strong>Meta (Facebook)</strong></td>
-              <td>Pixel possibly still active via Facebook & Instagram app</td>
-              <td class="badge-cell"><span class="badge action">Disable pixel</span></td>
-              <td>Disable Meta pixel in Shopify's Facebook & Instagram app</td>
+              <td><strong>Tag containers</strong></td>
+              <td>More than one tag-manager container (or duplicate loader) on the same storefront.</td>
+              <td>Confirm which container(s) should load in production; remove or merge anything unintentional.</td>
             </tr>
             <tr>
-              <td><strong>TikTok</strong></td>
-              <td>Pixel may be running natively alongside Elevar</td>
-              <td class="badge-cell"><span class="badge action">Disable pixel</span></td>
-              <td>Disable TikTok Pixel in Shopify app</td>
+              <td><strong>Theme &amp; legacy snippets</strong></td>
+              <td>Old embeds or hardcoded scripts that repeat what your data layer or apps already send.</td>
+              <td>Audit theme app embeds and custom liquid; remove redundant pixels and test in preview before publishing.</td>
             </tr>
             <tr>
-              <td><strong>Snapchat</strong></td>
-              <td>Elevar handling client-side; GTM tags still active</td>
-              <td class="badge-cell"><span class="badge action">Pause GTM tags</span></td>
-              <td>All Snapchat GTM tags must be paused to prevent duplication</td>
-            </tr>
-            <tr>
-              <td><strong>Pinterest</strong></td>
-              <td>Native Sales Channel app active</td>
-              <td class="badge-cell"><span class="badge note">Decision required</span></td>
-              <td>Pinterest app cannot separate Catalog vs Pixel. Options: migrate Catalog to GoDataFeed, or keep native app for pixel only (no Elevar for Pinterest)</td>
-            </tr>
-            <tr>
-              <td><strong>Reddit</strong></td>
-              <td>Tracking via Elevar</td>
-              <td class="badge-cell"><span class="badge action">Audit for duplication</span></td>
-              <td>Remove any hardcoded Reddit pixel scripts from theme</td>
-            </tr>
-            <tr>
-              <td><strong>GTM Containers</strong></td>
-              <td>Two GTM containers detected loading (GTM-MLX8N5L + 1 other)</td>
-              <td class="badge-cell"><span class="badge note">Audit needed</span></td>
-              <td>Elevar loads GTM-MLX8N5L. Confirm if the second container is intentional and contains no duplicate tags</td>
-            </tr>
-            <tr>
-              <td><strong>Friendbuy</strong></td>
-              <td>Theme code + custom pixel in use</td>
-              <td class="badge-cell"><span class="badge note">Confirm with Friendbuy</span></td>
-              <td>Elevar cannot confirm necessity; contact Friendbuy support to verify both code paths are required</td>
+              <td><strong>Apps &amp; widgets</strong></td>
+              <td>Loyalty, referrals, or reviews loading scripts that overlap tag-managed events.</td>
+              <td>Check with vendors whether a single integration path is enough; turn off duplicates where safe.</td>
             </tr>
           </tbody>
         </table>
@@ -865,8 +814,8 @@
 
       <!-- ── GTM OPTIMIZATION TIPS ── -->
       <section>
-        <div class="section-title">GTM Speed Optimizations (Elevar)</div>
-        <div class="section-subtitle">These GTM strategies can be applied independently of pixel removal to further improve performance.</div>
+        <div class="section-title">Tag manager performance tips</div>
+        <div class="section-subtitle">Applies to Google Tag Manager and similar setups—useful alongside cleaning up duplicate pixels.</div>
 
         <div class="tips-list">
           <div class="tip-item">
@@ -893,8 +842,8 @@
           <div class="tip-item">
             <div class="tip-num">4</div>
             <div class="tip-body">
-              <strong>Remove visibility triggers from Google Optimize tests</strong>
-              <span>Live or draft A/B tests using visibility triggers are especially costly. Audit and clean up any stale Optimize experiments.</span>
+              <strong>Review visibility triggers on experiments</strong>
+              <span>A/B or personalization tests that rely on visibility triggers can be costly. Audit and retire stale experiments.</span>
             </div>
           </div>
         </div>
@@ -905,7 +854,7 @@
         <div style="background: var(--charcoal); border-radius: 16px; padding: 32px 36px; display: flex; gap: 32px; align-items: center; flex-wrap: wrap">
           <div style="flex: 1; min-width: 240px">
             <div style="font-family: &quot;Cormorant Garamond&quot;, serif; font-size: clamp(32px, 4vw, 42px); font-weight: 600; color: #c9a85c; margin-bottom: 10px; letter-spacing: -0.02em">Room to grow</div>
-            <p style="font-size: 13.5px; color: rgba(255, 255, 255, 0.6); line-height: 1.7">The PSO theme has delivered solid LCP and payload reductions, particularly on PDP (−696ms, −1.03MB) and PLP (−602ms). Once 3rd-party pixel duplication is resolved, TBT improvements and further score gains are expected across PDP, PLP, and Homepage — especially the Homepage, where TBT regressed slightly after the PSO deploy.</p>
+            <p style="font-size: 13.5px; color: rgba(255, 255, 255, 0.6); line-height: 1.7">The optimized theme has delivered solid LCP and payload reductions, particularly on PDP (−696ms, −1.03MB) and PLP (−602ms). After tag and pixel duplication are tightened up, further TBT and score gains are realistic across PDP, PLP, and Homepage—including addressing Homepage TBT, which ticked up in these runs.</p>
           </div>
           <div style="display: flex; flex-direction: column; gap: 12px; min-width: 180px">
             <div style="border: 1px solid rgba(160, 125, 55, 0.35); border-radius: 10px; padding: 14px 18px">
